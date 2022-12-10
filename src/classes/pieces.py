@@ -17,6 +17,7 @@ class Piece():
         """
         self.coords = coords
         self.color = color
+        self.n_moves = 0
         self.name = name.title()
         self.name_short = name[0].upper() if self.name != 'Knight' else 'N'
 
@@ -38,6 +39,7 @@ class Piece():
         Returns:
             bool: if the move is legal
         """
+        # TODO: add check for piece in the way
         pass
 
     def move(self, new_coords: tuple[int, int]) -> tuple[int, int]:
@@ -55,6 +57,7 @@ class Piece():
             and new_coords[1] >= 0 and new_coords[1] <= 7:
 
             self.coords = new_coords
+            self.n_moves += 1
             return new_coords
         else:
             return (-1, -1)
@@ -168,19 +171,18 @@ class Pawn(Piece):
 
         Returns:
             bool: if the move is legal
-        """
+        """        
         if self.color == 'white':
-            # white pawns move from bottom to top
-            return new_coords[0]-self.coords[0] == -1 \
+            diff = (-2, -1) if self.n_moves == 0 else (-1,)
+            return new_coords[0]-self.coords[0] in diff \
                 and new_coords[1] == self.coords[1]
         elif self.color == 'black':
-            # black pawns move from top to bottom
-            return new_coords[0]-self.coords[0] == 1 \
+            diff = (2, 1) if self.n_moves == 0 else (1,)
+            return new_coords[0]-self.coords[0] in diff \
                 and new_coords[1] == self.coords[1]
         else:
             raise ValueError('Invalid color')
         
         # TODO: add en passant
         # TODO: add promotion
-        # TODO: add double move on first move
         # TODO: add capture
