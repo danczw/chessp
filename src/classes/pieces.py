@@ -28,22 +28,6 @@ class Piece():
         """
         return f'{self.color} {self.name} at {self.coords}'
 
-    def get_color(self) -> str:
-        """Getter for piece color
-
-        Returns:
-            str: color of the piece
-        """
-        return self.color
-
-    def get_coords(self) -> tuple[int, int]:
-        """Getter for piece coords
-
-        Returns:
-            list: coords of the piece as a list, e.g. [0, 1] for b8
-        """
-        return self.coords
-
     @abstractmethod
     def _check_legal_move(self, new_coords: tuple) -> bool:
         """Check if a move is legal
@@ -91,6 +75,8 @@ class King(Piece):
         """
         return abs(new_coords[0]-self.coords[0]) <= 1 \
             and abs(new_coords[1]-self.coords[1]) <= 1
+        
+        # TODO: add castling
 
 
 class Queen(Piece):
@@ -193,3 +179,8 @@ class Pawn(Piece):
                 and new_coords[1] == self.coords[1]
         else:
             raise ValueError('Invalid color')
+        
+        # TODO: add en passant
+        # TODO: add promotion
+        # TODO: add double move on first move
+        # TODO: add capture
