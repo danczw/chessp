@@ -8,8 +8,9 @@ class Piece():
         """Initialize a chess piece
 
         Args:
-            position (list): list of (reverse) piece board position, e.g. [0, 1]
-                for the first row and second column starting from top left: b8
+            position (list): list of (reverse) piece board position, e.g.
+                [0, 1] for the first row and second column starting from
+                top left: b8
             color (str): color of the piece, either 'white' or 'black'
             name (str): name of the piece, e.g. 'king'
             name_short (str): short name of the piece, e.g. 'K'
@@ -109,7 +110,7 @@ class Queen(Piece):
         """
         return (new_position[0] == self.position[0]
                 or new_position[1] == self.position[1]) \
-            or (abs(new_position[0]-self.position[0]) \
+            or (abs(new_position[0]-self.position[0])
                 == abs(new_position[1]-self.position[1]))
 
 
@@ -162,9 +163,9 @@ class Knight(Piece):
         Returns:
             bool: if the move is legal
         """
-        return (abs(new_position[0]-self.position[0]) == 2 \
+        return (abs(new_position[0]-self.position[0]) == 2
                 and abs(new_position[1]-self.position[1]) == 1) \
-            or (abs(new_position[0]-self.position[0]) == 1 \
+            or (abs(new_position[0]-self.position[0]) == 1
                 and abs(new_position[1]-self.position[1]) == 2)
 
 
