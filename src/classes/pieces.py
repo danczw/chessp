@@ -54,7 +54,9 @@ class Piece():
             bool: if the move was successful
         """
         if self._check_legal_move(new_position) \
-            and new_position != self.position:
+            and new_position != self.position \
+            and new_position[0] >= 0 and new_position[0] <= 7 \
+            and new_position[1] >= 0 and new_position[1] <= 7:
                 self.position = new_position
                 return True
         else:
