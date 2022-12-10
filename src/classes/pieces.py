@@ -8,8 +8,8 @@ class Piece():
         """Initialize a chess piece
 
         Args:
-            position (list): list of piece board position, e.g. [0, 1]
-                for the eight row and second column - b8
+            position (list): list of (reverse) piece board position, e.g. [0, 1]
+                for the first row and second column starting from top left: b8
             color (str): color of the piece, either 'white' or 'black'
             name (str): name of the piece, e.g. 'king'
             name_short (str): short name of the piece, e.g. 'K'
@@ -39,7 +39,7 @@ class Piece():
         """Getter for piece position
 
         Returns:
-            list: position of the piece as a list, e.g. [0, 1] for a2
+            list: position of the piece as a list, e.g. [0, 1] for b8
         """
         return self.position
 
@@ -183,12 +183,12 @@ class Pawn(Piece):
             bool: if the move is legal
         """
         if self.color == 'white':
-            # white pawns move up
-            return new_position[1]-self.position[1] == 1 \
-                and new_position[0] == self.position[0]
+            # white pawns move from bottom to top
+            return new_position[0]-self.position[0] == -1 \
+                and new_position[1] == self.position[1]
         elif self.color == 'black':
-            # black pawns move down
-            return new_position[1]-self.position[1] == -1 \
-                and new_position[0] == self.position[0]
+            # black pawns move from top to bottom
+            return new_position[0]-self.position[0] == 1 \
+                and new_position[1] == self.position[1]
         else:
             raise ValueError('Invalid color')
