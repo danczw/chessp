@@ -1,3 +1,4 @@
+import utils
 from classes.board import Board
 from classes.game import Game
 
@@ -16,7 +17,14 @@ def main():
         if move == 'exit':
             print('Goodbye Chess!')
             break
+        
+        move_coords = utils.validate_move_input_format(move)
+        if move_coords[0][0] == -1:
+            print('Invalid move format. Try again.')
+            continue
 
+        game.toggle_turn()
+        game.board.move_piece(move_coords[0], move_coords[1])
 
 if __name__ == '__main__':
     main()

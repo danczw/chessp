@@ -4,21 +4,21 @@ from abc import abstractmethod
 class Piece():
     """Chess piece class
     """
-    def __init__(self, position: list, color: str, name: str):
+    def __init__(self, coords: tuple, color: str, name: str):
         """Initialize a chess piece
 
         Args:
-            position (list): list of (reverse) piece board position, e.g.
+            coords (list): list of (reverse) piece board coords, e.g.
                 [0, 1] for the first row and second column starting from
                 top left: b8
             color (str): color of the piece, either 'white' or 'black'
             name (str): name of the piece, e.g. 'king'
             name_short (str): short name of the piece, e.g. 'K'
         """
-        self.position = position
+        self.coords = coords
         self.color = color
         self.name = name.title()
-        self.name_short = name[0].upper()
+        self.name_short = name[0].upper() if self.name != 'Knight' else 'N'
 
     def __str__(self) -> str:
         """String representation of the piece
@@ -26,7 +26,7 @@ class Piece():
         Returns:
             str: string representation of the piece
         """
-        return f'{self.color} {self.name} at {self.position}'
+        return f'{self.color} {self.name} at {self.coords}'
 
     def get_color(self) -> str:
         """Getter for piece color
@@ -36,160 +36,160 @@ class Piece():
         """
         return self.color
 
-    def get_position(self) -> list:
-        """Getter for piece position
+    def get_coords(self) -> tuple[int, int]:
+        """Getter for piece coords
 
         Returns:
-            list: position of the piece as a list, e.g. [0, 1] for b8
+            list: coords of the piece as a list, e.g. [0, 1] for b8
         """
-        return self.position
+        return self.coords
 
     @abstractmethod
-    def _check_legal_move(self, new_position: list) -> bool:
+    def _check_legal_move(self, new_coords: tuple) -> bool:
         """Check if a move is legal
 
         Args:
-            new_position (list): new position of the piece
+            new_coords (list): new coords of the piece
 
         Returns:
             bool: if the move is legal
         """
         pass
 
-    def move(self, new_position: list) -> list:
-        """Move the piece to a new position
+    def move(self, new_coords: tuple[int, int]) -> tuple[int, int]:
+        """Move the piece to a new coords
 
         Args:
-            new_position (list): new position of the piece
+            new_coords (list): new coords of the piece
 
         Returns:
             bool: if the move was successful
         """
-        if self._check_legal_move(new_position) \
-            and new_position != self.position \
-            and new_position[0] >= 0 and new_position[0] <= 7 \
-            and new_position[1] >= 0 and new_position[1] <= 7:
+        if self._check_legal_move(new_coords) \
+            and new_coords != self.coords \
+            and new_coords[0] >= 0 and new_coords[0] <= 7 \
+            and new_coords[1] >= 0 and new_coords[1] <= 7:
 
-            self.position = new_position
-            return new_position
+            self.coords = new_coords
+            return new_coords
         else:
-            return [-1, -1]
+            return (-1, -1)
 
 
 class King(Piece):
     """Chess king class
     """
-    def _check_legal_move(self, new_position: list) -> bool:
+    def _check_legal_move(self, new_coords: list) -> bool:
         """Check if a move is legal
-        new position must be one field away from current position
+        new coords must be one field away from current coords
 
         Args:
-            new_position (list): new position of the piece
+            new_coords (list): new coords of the piece
 
         Returns:
             bool: if the move is legal
         """
-        return abs(new_position[0]-self.position[0]) <= 1 \
-            and abs(new_position[1]-self.position[1]) <= 1
+        return abs(new_coords[0]-self.coords[0]) <= 1 \
+            and abs(new_coords[1]-self.coords[1]) <= 1
 
 
 class Queen(Piece):
     """Chess queen class
     """
-    def _check_legal_move(self, new_position: list) -> bool:
+    def _check_legal_move(self, new_coords: list) -> bool:
         """Check if a move is legal
-        new position must be in the same row or column as current position
-        or in the same diagonal as current position, calculated by the same
+        new coords must be in the same row or column as current coords
+        or in the same diagonal as current coords, calculated by the same
         change in row and column
 
         Args:
-            new_position (list): new position of the piece
+            new_coords (list): new coords of the piece
 
         Returns:
             bool: if the move is legal
         """
-        return (new_position[0] == self.position[0]
-                or new_position[1] == self.position[1]) \
-            or (abs(new_position[0]-self.position[0])
-                == abs(new_position[1]-self.position[1]))
+        return (new_coords[0] == self.coords[0]
+                or new_coords[1] == self.coords[1]) \
+            or (abs(new_coords[0]-self.coords[0])
+                == abs(new_coords[1]-self.coords[1]))
 
 
 class Rook(Piece):
     """Chess rook class
     """
-    def _check_legal_move(self, new_position: list) -> bool:
+    def _check_legal_move(self, new_coords: list) -> bool:
         """Check if a move is legal
-        new position must be in the same row or column as current position
+        new coords must be in the same row or column as current coords
 
         Args:
-            new_position (list): new position of the piece
+            new_coords (list): new coords of the piece
 
         Returns:
             bool: if the move is legal
         """
-        return new_position[0] == self.position[0] \
-            or new_position[1] == self.position[1]
+        return new_coords[0] == self.coords[0] \
+            or new_coords[1] == self.coords[1]
 
 
 class Bishop(Piece):
     """Chess bishop class
     """
-    def _check_legal_move(self, new_position: list) -> bool:
+    def _check_legal_move(self, new_coords: list) -> bool:
         """Check if a move is legal
-        new position must be in the same diagonal as current position,
+        new coords must be in the same diagonal as current coords,
         calculated by the same change in row and column
 
         Args:
-            new_position (list): new position of the piece
+            new_coords (list): new coords of the piece
 
         Returns:
             bool: if the move is legal
         """
-        return abs(new_position[0]-self.position[0]) \
-            == abs(new_position[1]-self.position[1])
+        return abs(new_coords[0]-self.coords[0]) \
+            == abs(new_coords[1]-self.coords[1])
 
 
 class Knight(Piece):
     """Chess knight class
     """
-    def _check_legal_move(self, new_position: list) -> bool:
+    def _check_legal_move(self, new_coords: list) -> bool:
         """Check if a move is legal
-        new position must be two fields away from current position in
+        new coords must be two fields away from current coords in
         either row or column and one field away in the other direction
 
         Args:
-            new_position (list): new position of the piece
+            new_coords (list): new coords of the piece
 
         Returns:
             bool: if the move is legal
         """
-        return (abs(new_position[0]-self.position[0]) == 2
-                and abs(new_position[1]-self.position[1]) == 1) \
-            or (abs(new_position[0]-self.position[0]) == 1
-                and abs(new_position[1]-self.position[1]) == 2)
+        return (abs(new_coords[0]-self.coords[0]) == 2
+                and abs(new_coords[1]-self.coords[1]) == 1) \
+            or (abs(new_coords[0]-self.coords[0]) == 1
+                and abs(new_coords[1]-self.coords[1]) == 2)
 
 
 class Pawn(Piece):
     """Chess pawn class
     """
-    def _check_legal_move(self, new_position: list) -> bool:
+    def _check_legal_move(self, new_coords: list) -> bool:
         """Check if a move is legal
-        new position must be one field away from current position in the
+        new coords must be one field away from current coords in the
         same column
 
         Args:
-            new_position (list): new position of the piece
+            new_coords (list): new coords of the piece
 
         Returns:
             bool: if the move is legal
         """
         if self.color == 'white':
             # white pawns move from bottom to top
-            return new_position[0]-self.position[0] == -1 \
-                and new_position[1] == self.position[1]
+            return new_coords[0]-self.coords[0] == -1 \
+                and new_coords[1] == self.coords[1]
         elif self.color == 'black':
             # black pawns move from top to bottom
-            return new_position[0]-self.position[0] == 1 \
-                and new_position[1] == self.position[1]
+            return new_coords[0]-self.coords[0] == 1 \
+                and new_coords[1] == self.coords[1]
         else:
             raise ValueError('Invalid color')
