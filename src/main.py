@@ -17,7 +17,7 @@ def main():
         if move == 'exit':
             print('Goodbye Chess!')
             break
-        
+
         move_coords = utils.validate_move_input_format(move)
         if move_coords[0][0] == -1:
             print('Invalid move format. Try again.')
@@ -28,7 +28,9 @@ def main():
             move_coords[1],
             game.turn_white
         )
-        if move_success: game.toggle_turn()
+        if move_success:
+            game.toggle_turn()
+
 
 if __name__ == '__main__':
     main()

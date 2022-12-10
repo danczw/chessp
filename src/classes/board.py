@@ -59,54 +59,53 @@ class Board():
 
         return pieces
 
-    
     def move_piece(
-            self,
-            startcoords:tuple,
-            endcoords:tuple,
-            white_turn: bool
-        ) -> bool:
-            """Move a piece on the board as per user input
+        self,
+        startcoords: tuple,
+        endcoords: tuple,
+        white_turn: bool
+            ) -> bool:
+        """Move a piece on the board as per user input
 
-            Args:
-                startcoords (tuple): starting coords of the piece
-                endcoords (tuple): ending coords of the piece
-                white_turn (bool): if it is white's turn
-            
-            Returns:
-                bool: True if move is successful, False otherwise
-            """
-            # check if there is a piece at start coords
-            try:
-                moved_piece = self.pieces[startcoords[0]][startcoords[1]]
-            except KeyError:
-                print('No piece at start position')
-                return False
-            
-            # check if piece is of the same color as current turn
-            if (moved_piece.color == 'white' and not white_turn) \
+        Args:
+            startcoords (tuple): starting coords of the piece
+            endcoords (tuple): ending coords of the piece
+            white_turn (bool): if it is white's turn
+
+        Returns:
+            bool: True if move is successful, False otherwise
+        """
+        # check if there is a piece at start coords
+        try:
+            moved_piece = self.pieces[startcoords[0]][startcoords[1]]
+        except KeyError:
+            print('No piece at start position')
+            return False
+
+        # check if piece is of the same color as current turn
+        if (moved_piece.color == 'white' and not white_turn) \
                 or (moved_piece.color == 'black' and white_turn):
-                print('Not your turn')
+            print('Not your turn')
+            return False
+
+        # check if move is valid for piece
+        if moved_piece.move(endcoords) == (-1, -1):
+            print('Invalid move')
+            return False
+
+        # check if end coords is occupied by piece
+        try:
+            end_piece = self.pieces[endcoords[0]][endcoords[1]]
+            if end_piece.color == moved_piece.color:
+                print('Cannot capture own piece')
                 return False
-            
-            # check if move is valid for piece
-            if moved_piece.move(endcoords) == (-1, -1):
-                print('Invalid move')
-                return False
-            
-            # check if end coords is occupied by piece
-            try:
-                end_piece = self.pieces[endcoords[0]][endcoords[1]]
-                if end_piece.color == moved_piece.color:
-                    print('Cannot capture own piece')
-                    return False
-            except KeyError:
-                pass
-            
-            del self.pieces[startcoords[0]][startcoords[1]]
-            self.pieces[endcoords[0]][endcoords[1]] = moved_piece
-            self.draw()
-            return True
+        except KeyError:
+            pass
+
+        del self.pieces[startcoords[0]][startcoords[1]]
+        self.pieces[endcoords[0]][endcoords[1]] = moved_piece
+        self.draw()
+        return True
 
     def draw(self) -> None:
         """Print current board status

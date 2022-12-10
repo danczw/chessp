@@ -39,8 +39,19 @@ class Piece():
         Returns:
             bool: if the move is legal
         """
-        # TODO: add check for piece in the way
         pass
+
+    def _check_free_path(self, new_coords: tuple) -> bool:
+        """Check if there is a free path to the new coords
+
+        Args:
+            new_coords (tuple): end coords of the piece move
+
+        Returns:
+            bool: if the path is free
+        """
+        # TODO: add check for piece in the way
+        return True
 
     def move(self, new_coords: tuple[int, int]) -> tuple[int, int]:
         """Move the piece to a new coords
@@ -54,7 +65,7 @@ class Piece():
         if self._check_legal_move(new_coords) \
             and new_coords != self.coords \
             and new_coords[0] >= 0 and new_coords[0] <= 7 \
-            and new_coords[1] >= 0 and new_coords[1] <= 7:
+                and new_coords[1] >= 0 and new_coords[1] <= 7:
 
             self.coords = new_coords
             self.n_moves += 1
@@ -78,7 +89,7 @@ class King(Piece):
         """
         return abs(new_coords[0]-self.coords[0]) <= 1 \
             and abs(new_coords[1]-self.coords[1]) <= 1
-        
+
         # TODO: add castling
 
 
@@ -171,7 +182,7 @@ class Pawn(Piece):
 
         Returns:
             bool: if the move is legal
-        """        
+        """
         if self.color == 'white':
             diff = (-2, -1) if self.n_moves == 0 else (-1,)
             return new_coords[0]-self.coords[0] in diff \
@@ -182,7 +193,7 @@ class Pawn(Piece):
                 and new_coords[1] == self.coords[1]
         else:
             raise ValueError('Invalid color')
-        
+
         # TODO: add en passant
         # TODO: add promotion
         # TODO: add capture

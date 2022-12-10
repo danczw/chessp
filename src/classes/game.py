@@ -13,9 +13,9 @@ class Game():
         self.n_turns = 0
         self.turn_white = True
         self.board = board
-        
+
         board.draw()
-    
+
     def toggle_turn(self) -> None:
         """Toggle turn
         """
