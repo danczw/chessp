@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 
 class Piece():
@@ -9,7 +9,7 @@ class Piece():
 
         Args:
             position (list): list of piece board position, e.g. [0, 1]
-                for the first row and second column as a2
+                for the eight row and second column - b8
             color (str): color of the piece, either 'white' or 'black'
             name (str): name of the piece, e.g. 'king'
             name_short (str): short name of the piece, e.g. 'K'
@@ -18,7 +18,15 @@ class Piece():
         self.color = color
         self.name = name.title()
         self.name_short = name[0].upper()
-    
+
+    def __str__(self) -> str:
+        """String representation of the piece
+
+        Returns:
+            str: string representation of the piece
+        """
+        return f'{self.color} {self.name} at {self.position}'
+
     def get_color(self) -> str:
         """Getter for piece color
 
@@ -26,7 +34,7 @@ class Piece():
             str: color of the piece
         """
         return self.color
-    
+
     def get_position(self) -> list:
         """Getter for piece position
 
@@ -34,7 +42,7 @@ class Piece():
             list: position of the piece as a list, e.g. [0, 1] for a2
         """
         return self.position
-    
+
     @abstractmethod
     def _check_legal_move(self, new_position: list) -> bool:
         """Check if a move is legal
@@ -47,7 +55,6 @@ class Piece():
         """
         pass
 
-        
     def move(self, new_position: list) -> bool:
         """Move the piece to a new position
 
@@ -61,15 +68,16 @@ class Piece():
             and new_position != self.position \
             and new_position[0] >= 0 and new_position[0] <= 7 \
             and new_position[1] >= 0 and new_position[1] <= 7:
-                self.position = new_position
-                return True
+
+            self.position = new_position
+            return True
         else:
             return False
 
 
 class King(Piece):
     """Chess king class
-    """    
+    """
     def _check_legal_move(self, new_position: list) -> bool:
         """Check if a move is legal
         new position must be one field away from current position
@@ -99,7 +107,7 @@ class Queen(Piece):
         Returns:
             bool: if the move is legal
         """
-        return (new_position[0] == self.position[0] \
+        return (new_position[0] == self.position[0]
                 or new_position[1] == self.position[1]) \
             or (abs(new_position[0]-self.position[0]) \
                 == abs(new_position[1]-self.position[1]))
