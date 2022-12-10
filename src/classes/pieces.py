@@ -4,16 +4,20 @@ from abc import ABC, abstractmethod
 class Piece():
     """Chess piece class
     """
-    def __init__(self, position: list, color: str):
+    def __init__(self, position: list, color: str, name: str):
         """Initialize a chess piece
 
         Args:
             position (list): list of piece board position, e.g. [0, 1]
                 for the first row and second column as a2
             color (str): color of the piece, either 'white' or 'black'
+            name (str): name of the piece, e.g. 'king'
+            name_short (str): short name of the piece, e.g. 'K'
         """
         self.position = position
         self.color = color
+        self.name = name.title()
+        self.name_short = name[0].upper()
     
     def get_color(self) -> str:
         """Getter for piece color
@@ -65,7 +69,7 @@ class Piece():
 
 class King(Piece):
     """Chess king class
-    """
+    """    
     def _check_legal_move(self, new_position: list) -> bool:
         """Check if a move is legal
         new position must be one field away from current position
