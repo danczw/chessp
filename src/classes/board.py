@@ -1,4 +1,13 @@
-from pieces import Bishop, King, Knight, Pawn, Piece, Queen, Rook
+from classes.pieces import Bishop, King, Knight, Pawn, Piece, Queen, Rook
+
+
+def prCyan_on_line(text):
+    """Print in cyan wihtout newline
+
+    Args:
+        text (str): text to print in cyan
+    """
+    print(f'\033[96m {text}\033[00m', end='')
 
 
 class Board():
@@ -60,12 +69,14 @@ class Board():
 
             for col in range(0, 8):
                 if self.pieces[row].get(col):
-                    print(f' {self.pieces[row][col].name_short}', end='')
+                    if self.pieces[row][col].color == 'black':
+                        prCyan_on_line(f'{self.pieces[row][col].name_short}')
+                    else:
+                        print(f' {self.pieces[row][col].name_short}', end='')
                 else:
                     print('  ', end='')
                 print(' |', end='')
 
-            # print(' P', end='')
             print(' ')
 
         print('*' * 33)
