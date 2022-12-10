@@ -56,7 +56,7 @@ class Piece():
         """
         pass
 
-    def move(self, new_position: list) -> bool:
+    def move(self, new_position: list) -> list:
         """Move the piece to a new position
 
         Args:
@@ -71,9 +71,9 @@ class Piece():
             and new_position[1] >= 0 and new_position[1] <= 7:
 
             self.position = new_position
-            return True
+            return new_position
         else:
-            return False
+            return [-1, -1]
 
 
 class King(Piece):
