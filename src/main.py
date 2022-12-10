@@ -23,8 +23,12 @@ def main():
             print('Invalid move format. Try again.')
             continue
 
-        game.toggle_turn()
-        game.board.move_piece(move_coords[0], move_coords[1])
+        move_success = game.board.move_piece(
+            move_coords[0],
+            move_coords[1],
+            game.turn_white
+        )
+        if move_success: game.toggle_turn()
 
 if __name__ == '__main__':
     main()
