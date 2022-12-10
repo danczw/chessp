@@ -6,15 +6,15 @@ def test_king():
     """
     king = King(color='white', coords=(2, 2), name='king')
 
-    assert king.get_color() == 'white'
-    assert king.get_coords() == (2, 2)
+    assert king.color == 'white'
+    assert king.coords == (2, 2)
 
     assert king.move((0, 1)) == (-1, -1)
     assert king.move((2, 2)) == (-1, -1)
     assert king.move((2, 3)) == (2, 3)
     assert king.move((3, 3)) == (3, 3)
 
-    assert king.get_coords() == (3, 3)
+    assert king.coords == (3, 3)
 
 
 def test_queen():
@@ -22,8 +22,8 @@ def test_queen():
     """
     queen = Queen(color='black', coords=(2, 2), name='queen')
 
-    assert queen.get_color() == 'black'
-    assert queen.get_coords() == (2, 2)
+    assert queen.color == 'black'
+    assert queen.coords == (2, 2)
 
     assert queen.move((0, 1)) == (-1, -1)
     assert queen.move((2, 2)) == (-1, -1)
@@ -31,7 +31,7 @@ def test_queen():
     assert queen.move((7, 7)) == (7, 7)
     assert queen.move((3, 3)) == (3, 3)
 
-    assert queen.get_coords() == (3, 3)
+    assert queen.coords == (3, 3)
 
 
 def test_rook():
@@ -39,8 +39,8 @@ def test_rook():
     """
     rook = Rook(color='white', coords=(2, 2), name='rook')
 
-    assert rook.get_color() == 'white'
-    assert rook.get_coords() == (2, 2)
+    assert rook.color == 'white'
+    assert rook.coords == (2, 2)
 
     assert rook.move((0, 1)) == (-1, -1)
     assert rook.move((2, 2)) == (-1, -1)
@@ -48,7 +48,7 @@ def test_rook():
     assert rook.move((7, 7)) == (7, 7)
     assert rook.move((3, 3)) == (-1, -1)
 
-    assert rook.get_coords() == (7, 7)
+    assert rook.coords == (7, 7)
 
 
 def test_bishop():
@@ -57,8 +57,8 @@ def test_bishop():
     # test black bishop
     bishop_w = Bishop(color='white', coords=(2, 2), name='bishop')
 
-    assert bishop_w.get_color() == 'white'
-    assert bishop_w.get_coords() == (2, 2)
+    assert bishop_w.color == 'white'
+    assert bishop_w.coords == (2, 2)
 
     assert bishop_w.move((0, 1)) == (-1, -1)
     assert bishop_w.move((2, 2)) == (-1, -1)
@@ -67,13 +67,13 @@ def test_bishop():
     assert bishop_w.move((7, 5)) == (7, 5)
     assert bishop_w.move((3, 3)) == (-1, -1)
 
-    assert bishop_w.get_coords() == (7, 5)
+    assert bishop_w.coords == (7, 5)
 
     # test white bishop
     bishop_b = Bishop(color='black', coords=(3, 2), name='bishop')
 
-    assert bishop_b.get_color() == 'black'
-    assert bishop_b.get_coords() == (3, 2)
+    assert bishop_b.color == 'black'
+    assert bishop_b.coords == (3, 2)
 
     assert bishop_b.move((0, 1)) == (-1, -1)
     assert bishop_b.move((3, 2)) == (-1, -1)
@@ -81,7 +81,7 @@ def test_bishop():
     assert bishop_b.move((6, 7)) == (6, 7)
     assert bishop_b.move((3, 3)) == (-1, -1)
 
-    assert bishop_b.get_coords() == (6, 7)
+    assert bishop_b.coords == (6, 7)
 
 
 def test_knight():
@@ -89,8 +89,8 @@ def test_knight():
     """
     knight = Knight(color='white', coords=(2, 2), name='knight')
 
-    assert knight.get_color() == 'white'
-    assert knight.get_coords() == (2, 2)
+    assert knight.color == 'white'
+    assert knight.coords == (2, 2)
 
     assert knight.move((2, 2)) == (-1, -1)
     assert knight.move((0, 1)) == (0, 1)
@@ -98,7 +98,7 @@ def test_knight():
     assert knight.move((1, 3)) == (1, 3)
     assert knight.move((3, 4)) == (3, 4)
 
-    assert knight.get_coords() == (3, 4)
+    assert knight.coords == (3, 4)
 
 
 def test_pawn():
@@ -107,8 +107,8 @@ def test_pawn():
     # test black pawn
     pawn_w = Pawn(color='black', coords=(2, 2), name='pawn')
 
-    assert pawn_w.get_color() == 'black'
-    assert pawn_w.get_coords() == (2, 2)
+    assert pawn_w.color == 'black'
+    assert pawn_w.coords == (2, 2)
 
     assert pawn_w.move((0, 1)) == (-1, -1)
     assert pawn_w.move((2, 2)) == (-1, -1)
@@ -116,13 +116,13 @@ def test_pawn():
     assert pawn_w.move((4, 2)) == (4, 2)
     assert pawn_w.move((4, 3)) == (-1, -1)
 
-    assert pawn_w.get_coords() == (4, 2)
+    assert pawn_w.coords == (4, 2)
 
     # test white pawn
     pawn_b = Pawn(color='white', coords=(6, 6), name='pawn')
 
-    assert pawn_b.get_color() == 'white'
-    assert pawn_b.get_coords() == (6, 6)
+    assert pawn_b.color == 'white'
+    assert pawn_b.coords == (6, 6)
 
     assert pawn_b.move((0, 1)) == (-1, -1)
     assert pawn_b.move((6, 6)) == (-1, -1)
@@ -131,4 +131,4 @@ def test_pawn():
     assert pawn_b.move((4, 5)) == (-1, -1)
     assert pawn_b.move((3, 6)) == (3, 6)
 
-    assert pawn_b.get_coords() == (3, 6)
+    assert pawn_b.coords == (3, 6)
