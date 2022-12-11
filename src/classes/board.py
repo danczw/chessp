@@ -93,19 +93,83 @@ class Board():
             print('Invalid move')
             return False
 
-        # check if end coords is occupied by piece
+        # check if end coords is occupied...
         try:
             end_piece = self.pieces[endcoords[0]][endcoords[1]]
-            if end_piece.color == moved_piece.color:
-                print('Cannot capture own piece')
-                return False
         except KeyError:
-            pass
+            end_piece = None
+        # ...and if it is of the same color
+        if end_piece and end_piece.color == moved_piece.color:
+            print('Cannot capture own piece')
+            return False
 
+        # get all coords between start and end
+        all_coords = self._get_coords_between(startcoords, endcoords)
+        # check if any piece is in the way
+        for coords in all_coords:
+            if self.pieces[coords[0]].get(coords[1]):
+                print('Piece in the way')
+                return False
+
+        # move piece
         del self.pieces[startcoords[0]][startcoords[1]]
         self.pieces[endcoords[0]][endcoords[1]] = moved_piece
         self.draw()
+
         return True
+
+    def _get_coords_between(
+        self,
+        startcoords: tuple,
+        endcoords: tuple
+            ) -> list[tuple]:
+        """Get all coords between start and end
+
+        Args:
+            startcoords (tuple): starting coords
+            endcoords (tuple): ending coords
+
+        Returns:
+            list[tuple]: list of coords between start and end
+        """
+        coords_between = []
+        row_coords = sorted([startcoords[0], endcoords[0]])
+        col_coords = sorted([startcoords[1], endcoords[1]])
+
+        # horizontal move
+        if startcoords[0] == endcoords[0]:
+            for col in range(col_coords[0] + 1, col_coords[1]):
+                coords_between.append((startcoords[0], col))
+        # vertical move
+        elif startcoords[1] == endcoords[1]:
+            for row in range(row_coords[0] + 1, row_coords[1]):
+                coords_between.append((row, startcoords[1]))
+        # diagonal move
+        elif abs(startcoords[0] - endcoords[0]) \
+                == abs(startcoords[1] - endcoords[1]):
+            # board downwords
+            if startcoords[0] < endcoords[0]:
+                row_start = startcoords[0] + 1
+                row_end = endcoords[0]
+            # board upwards
+            else:
+                row_start = endcoords[0] + 1
+                row_end = startcoords[0]
+
+            # board rightwards
+            if startcoords[1] < endcoords[1]:
+                col_start = startcoords[1] + 1
+                col_end = endcoords[1]
+            # board leftwards
+            else:
+                col_start = endcoords[1] + 1
+                col_end = startcoords[1]
+
+            for row, col in zip(range(row_start, row_end),
+                                range(col_start, col_end)):
+                coords_between.append((row, col))
+
+        return coords_between
 
     def draw(self) -> None:
         """Print current board status

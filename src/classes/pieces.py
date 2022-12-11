@@ -8,7 +8,7 @@ class Piece():
         """Initialize a chess piece
 
         Args:
-            coords (list): list of (reverse) piece board coords, e.g.
+            coords (tuple): tuple of (reverse) piece board coords, e.g.
                 [0, 1] for the first row and second column starting from
                 top left: b8
             color (str): color of the piece, either 'white' or 'black'
@@ -34,30 +34,18 @@ class Piece():
         """Check if a move is legal
 
         Args:
-            new_coords (list): new coords of the piece
+            new_coords (tuple): new coords of the piece
 
         Returns:
             bool: if the move is legal
         """
         pass
 
-    def _check_free_path(self, new_coords: tuple) -> bool:
-        """Check if there is a free path to the new coords
-
-        Args:
-            new_coords (tuple): end coords of the piece move
-
-        Returns:
-            bool: if the path is free
-        """
-        # TODO: add check for piece in the way
-        return True
-
-    def move(self, new_coords: tuple[int, int]) -> tuple[int, int]:
+    def move(self, new_coords: tuple[int, int], ) -> tuple[int, int]:
         """Move the piece to a new coords
 
         Args:
-            new_coords (list): new coords of the piece
+            new_coords (tuple): new coords of the piece
 
         Returns:
             bool: if the move was successful
@@ -77,12 +65,12 @@ class Piece():
 class King(Piece):
     """Chess king class
     """
-    def _check_legal_move(self, new_coords: list) -> bool:
+    def _check_legal_move(self, new_coords: tuple) -> bool:
         """Check if a move is legal
         new coords must be one field away from current coords
 
         Args:
-            new_coords (list): new coords of the piece
+            new_coords (tuple): new coords of the piece
 
         Returns:
             bool: if the move is legal
@@ -96,14 +84,14 @@ class King(Piece):
 class Queen(Piece):
     """Chess queen class
     """
-    def _check_legal_move(self, new_coords: list) -> bool:
+    def _check_legal_move(self, new_coords: tuple) -> bool:
         """Check if a move is legal
         new coords must be in the same row or column as current coords
         or in the same diagonal as current coords, calculated by the same
         change in row and column
 
         Args:
-            new_coords (list): new coords of the piece
+            new_coords (tuple): new coords of the piece
 
         Returns:
             bool: if the move is legal
@@ -117,12 +105,12 @@ class Queen(Piece):
 class Rook(Piece):
     """Chess rook class
     """
-    def _check_legal_move(self, new_coords: list) -> bool:
+    def _check_legal_move(self, new_coords: tuple) -> bool:
         """Check if a move is legal
         new coords must be in the same row or column as current coords
 
         Args:
-            new_coords (list): new coords of the piece
+            new_coords (tuple): new coords of the piece
 
         Returns:
             bool: if the move is legal
@@ -134,13 +122,13 @@ class Rook(Piece):
 class Bishop(Piece):
     """Chess bishop class
     """
-    def _check_legal_move(self, new_coords: list) -> bool:
+    def _check_legal_move(self, new_coords: tuple) -> bool:
         """Check if a move is legal
         new coords must be in the same diagonal as current coords,
         calculated by the same change in row and column
 
         Args:
-            new_coords (list): new coords of the piece
+            new_coords (tuple): new coords of the piece
 
         Returns:
             bool: if the move is legal
@@ -152,13 +140,13 @@ class Bishop(Piece):
 class Knight(Piece):
     """Chess knight class
     """
-    def _check_legal_move(self, new_coords: list) -> bool:
+    def _check_legal_move(self, new_coords: tuple) -> bool:
         """Check if a move is legal
         new coords must be two fields away from current coords in
         either row or column and one field away in the other direction
 
         Args:
-            new_coords (list): new coords of the piece
+            new_coords (tuple): new coords of the piece
 
         Returns:
             bool: if the move is legal
@@ -172,13 +160,13 @@ class Knight(Piece):
 class Pawn(Piece):
     """Chess pawn class
     """
-    def _check_legal_move(self, new_coords: list) -> bool:
+    def _check_legal_move(self, new_coords: tuple) -> bool:
         """Check if a move is legal
         new coords must be one field away from current coords in the
         same column
 
         Args:
-            new_coords (list): new coords of the piece
+            new_coords (tuple): new coords of the piece
 
         Returns:
             bool: if the move is legal
