@@ -190,5 +190,4 @@ class Pawn(Piece):
             raise ValueError('Invalid color')
 
         # TODO: add en passant
-        # TODO: add promotion
-        # TODO: add capture
+        # TODO: add pawn capture

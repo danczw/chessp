@@ -1,10 +1,10 @@
 from classes.board import Board
+from classes.pieces import Pawn
 
 
 def test_pawn_startposition():
     """Test start positions of pieces on board: Pawn
     """
-
     board_one = Board()
     board_two = Board()
 
@@ -15,6 +15,22 @@ def test_pawn_startposition():
         assert board_one.pieces[1][col].color == 'black'
         assert board_one.pieces[6][col].name == 'Pawn'
         assert board_one.pieces[6][col].color == 'white'
+
+
+def test_pawn_promotion(monkeypatch):
+    """Test promotion of pawns
+    """
+    monkeypatch.setattr('builtins.input', lambda _: 'Q')
+
+    # setup board
+    board = Board()
+    del board.pieces[0][0]
+    del board.pieces[1][0]
+    board.pieces[1][0] = Pawn(coords=(1, 0), color='white', name='pawn')
+
+    # test promotion
+    board.move_piece((1, 0), (0, 0), True)
+    assert board.pieces[0][0].name == 'Queen'
 
 
 def test_rook_startposition():

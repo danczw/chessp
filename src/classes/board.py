@@ -103,9 +103,8 @@ class Board():
             print('Cannot capture own piece')
             return False
 
-        # get all coords between start and end
-        all_coords = self._get_coords_between(startcoords, endcoords)
         # check if any piece is in the way
+        all_coords = self._get_coords_between(startcoords, endcoords)
         for coords in all_coords:
             if self.pieces[coords[0]].get(coords[1]):
                 print('Piece in the way')
@@ -120,6 +119,11 @@ class Board():
 
             if not castle_check:
                 return False
+
+        # check for promotion
+        if moved_piece.name_short == 'P' \
+                and (endcoords[0] == 0 or endcoords[0] == 7):
+            moved_piece = self._promotion(endcoords, moved_piece)
 
         # move piece to end coords
         self.pieces[endcoords[0]][endcoords[1]] = moved_piece
@@ -215,6 +219,29 @@ class Board():
         del self.pieces[rook_startcoords[0]][rook_startcoords[1]]
         self.pieces[rook_endcoords[0]][rook_endcoords[1]] = moved_rook
         return True
+
+    def _promotion(
+        self,
+        endcoords: tuple[int, int],
+        moved_piece: Piece
+    ) -> Piece:
+        pieces_dict = {'Queen': Queen, 'Rook': Rook,
+                       'Bishop': Bishop, 'Knight': Knight}
+
+        # get new piece
+        new_piece_name_short = 'X'
+        while new_piece_name_short not in ['Q', 'R', 'B', 'N']:
+            new_piece_name_short = input('Promote to (Q, R, B, N): ').upper()
+
+        new_piece_name = [k for k in pieces_dict.keys()
+                          if k.startswith(new_piece_name_short)][0]
+
+        # return promoted piece
+        return pieces_dict[new_piece_name](
+            coords=endcoords,
+            color=moved_piece.color,
+            name=new_piece_name
+        )
 
     def draw(self) -> None:
         """Print current board status
