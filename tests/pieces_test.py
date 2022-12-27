@@ -2,11 +2,10 @@ from classes.pieces import Bishop, King, Knight, Pawn, Queen, Rook
 
 
 def test_king():
-    """Test the king class
-    """
-    king = King(color='white', coords=(2, 2), name='king')
+    """Test the king class"""
+    king = King(color="white", coords=(2, 2), name="king")
 
-    assert king.color == 'white'
+    assert king.color == "white"
     assert king.n_moves == 0
     assert king.coords == (2, 2)
 
@@ -20,36 +19,34 @@ def test_king():
 
 
 def test_king_castle():
-    """Test the castle move of king class
-    """
+    """Test the castle move of king class"""
     for end_col in [2, 6]:
         # valid castle move for white
-        king_w = King(color='white', coords=(7, 4), name='king')
+        king_w = King(color="white", coords=(7, 4), name="king")
         assert king_w.move((7, end_col)) == (7, end_col)
         del king_w
 
         # invalid castle move for white
-        king_w = King(color='white', coords=(7, 4), name='king')
+        king_w = King(color="white", coords=(7, 4), name="king")
         king_w.n_moves = 1
         assert king_w.move((7, end_col)) == (-1, -1)
 
         # valid castle move for black
-        king_b = King(color='black', coords=(0, 4), name='king')
+        king_b = King(color="black", coords=(0, 4), name="king")
         assert king_b.move((0, end_col)) == (0, end_col)
         del king_b
 
         # invalid castle move for black
-        king_b = King(color='black', coords=(0, 4), name='king')
+        king_b = King(color="black", coords=(0, 4), name="king")
         king_b.n_moves = 1
         assert king_b.move((0, end_col)) == (-1, -1)
 
 
 def test_queen():
-    """Test the queen class
-    """
-    queen = Queen(color='black', coords=(2, 2), name='queen')
+    """Test the queen class"""
+    queen = Queen(color="black", coords=(2, 2), name="queen")
 
-    assert queen.color == 'black'
+    assert queen.color == "black"
     assert queen.n_moves == 0
     assert queen.coords == (2, 2)
 
@@ -64,11 +61,10 @@ def test_queen():
 
 
 def test_rook():
-    """Test the rook class
-    """
-    rook = Rook(color='white', coords=(2, 2), name='rook')
+    """Test the rook class"""
+    rook = Rook(color="white", coords=(2, 2), name="rook")
 
-    assert rook.color == 'white'
+    assert rook.color == "white"
     assert rook.n_moves == 0
     assert rook.coords == (2, 2)
 
@@ -83,12 +79,11 @@ def test_rook():
 
 
 def test_bishop():
-    """Test the bishop class
-    """
+    """Test the bishop class"""
     # test black bishop
-    bishop_w = Bishop(color='white', coords=(2, 2), name='bishop')
+    bishop_w = Bishop(color="white", coords=(2, 2), name="bishop")
 
-    assert bishop_w.color == 'white'
+    assert bishop_w.color == "white"
     assert bishop_w.n_moves == 0
     assert bishop_w.coords == (2, 2)
 
@@ -103,9 +98,9 @@ def test_bishop():
     assert bishop_w.coords == (7, 5)
 
     # test white bishop
-    bishop_b = Bishop(color='black', coords=(3, 2), name='bishop')
+    bishop_b = Bishop(color="black", coords=(3, 2), name="bishop")
 
-    assert bishop_b.color == 'black'
+    assert bishop_b.color == "black"
     assert bishop_b.n_moves == 0
     assert bishop_b.coords == (3, 2)
 
@@ -120,11 +115,10 @@ def test_bishop():
 
 
 def test_knight():
-    """Test the knight class
-    """
-    knight = Knight(color='white', coords=(2, 2), name='knight')
+    """Test the knight class"""
+    knight = Knight(color="white", coords=(2, 2), name="knight")
 
-    assert knight.color == 'white'
+    assert knight.color == "white"
     assert knight.n_moves == 0
     assert knight.coords == (2, 2)
 
@@ -139,12 +133,11 @@ def test_knight():
 
 
 def test_pawn():
-    """Test the pawn class
-    """
+    """Test the pawn class"""
     # test black pawn
-    pawn_w = Pawn(color='black', coords=(2, 2), name='pawn')
+    pawn_w = Pawn(color="black", coords=(2, 2), name="pawn")
 
-    assert pawn_w.color == 'black'
+    assert pawn_w.color == "black"
     assert pawn_w.n_moves == 0
     assert pawn_w.coords == (2, 2)
 
@@ -158,9 +151,9 @@ def test_pawn():
     assert pawn_w.coords == (4, 2)
 
     # test white pawn
-    pawn_b = Pawn(color='white', coords=(6, 6), name='pawn')
+    pawn_b = Pawn(color="white", coords=(6, 6), name="pawn")
 
-    assert pawn_b.color == 'white'
+    assert pawn_b.color == "white"
     assert pawn_b.n_moves == 0
     assert pawn_b.coords == (6, 6)
 

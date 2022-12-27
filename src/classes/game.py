@@ -1,9 +1,9 @@
 from classes.board import Board
 
 
-class Game():
-    """Game state class
-    """
+class Game:
+    """Game state class"""
+
     def __init__(self, board: Board):
         """Initialize a game
 
@@ -17,7 +17,6 @@ class Game():
         board.draw()
 
     def toggle_turn(self) -> None:
-        """Toggle turn
-        """
+        """Toggle turn"""
         self.turn_white = not self.turn_white
         self.n_turns += 1

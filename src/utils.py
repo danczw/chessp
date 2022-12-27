@@ -12,7 +12,7 @@ def validate_move_input_format(move: str) -> tuple[tuple, tuple]:
             ((startrow, startcol), (endrow, endcol)) or ((-1, -1), (-1, -1))
             if move is not in the correct format
     """
-    result = re.match(r'[a-h][1-8]:[a-h][1-8]', move)
+    result = re.match(r"[a-h][1-8]:[a-h][1-8]", move)
     if result and len(move) == 5:
         return move_str_to_coords(move)
 
@@ -20,7 +20,7 @@ def validate_move_input_format(move: str) -> tuple[tuple, tuple]:
 
 
 def move_str_to_coords(move: str) -> tuple[tuple, tuple]:
-    """_summary_
+    """convert user input to coordinates.
 
     Args:
         move (str): move input by user
