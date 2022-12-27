@@ -174,10 +174,11 @@ class Board():
     def draw(self) -> None:
         """Print current board status
         """
-        print('*' * 33)
+        print('    a   b   c   d   e   f   g   h')
+        print('  ' + '*' * 33)
 
         for row in range(0, 8):
-            print('|', end='')
+            print(f'{8 - row} |', end='')
 
             for col in range(0, 8):
                 if self.pieces[row].get(col):
@@ -191,4 +192,4 @@ class Board():
 
             print(' ')
 
-        print('*' * 33)
+        print('  ' + '*' * 33)
