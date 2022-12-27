@@ -110,9 +110,18 @@ class Board():
             if self.pieces[coords[0]].get(coords[1]):
                 print('Piece in the way')
                 return False
-
-        # move piece
+        # if no piece is in the way, remove piece from start coords
         del self.pieces[startcoords[0]][startcoords[1]]
+
+        # check for castling and move rook
+        if moved_piece.name_short == 'K' \
+                and abs(startcoords[1] - endcoords[1]) == 2:
+            castle_check = self._castling(startcoords, endcoords)
+
+            if not castle_check:
+                return False
+
+        # move piece to end coords
         self.pieces[endcoords[0]][endcoords[1]] = moved_piece
         self.draw()
 
@@ -147,7 +156,7 @@ class Board():
         # diagonal move
         elif abs(startcoords[0] - endcoords[0]) \
                 == abs(startcoords[1] - endcoords[1]):
-            # board downwords
+            # board downwards
             if startcoords[0] < endcoords[0]:
                 row_start = startcoords[0] + 1
                 row_end = endcoords[0]
@@ -170,6 +179,42 @@ class Board():
                 coords_between.append((row, col))
 
         return coords_between
+
+    def _castling(
+        self,
+        startcoords: tuple[int, int],
+        endcoords: tuple[int, int]
+    ) -> bool:
+        # get rook
+        if startcoords[1] < endcoords[1]:
+            rook_startcoords = (startcoords[0], 7)
+            rook_endcoords = (startcoords[0], 5)
+        else:
+            rook_startcoords = (startcoords[0], 0)
+            rook_endcoords = (startcoords[0], 3)
+        moved_rook = self.pieces[rook_startcoords[0]][rook_startcoords[1]]
+
+        # check if rook has moved
+        if moved_rook.n_moves != 0:
+            print('Cannot castle, rook has moved')
+            return False
+
+        # check if rook move is valid
+        if moved_rook.move(rook_endcoords) == (-1, -1):
+            print('Invalid castling')
+            return False
+
+        # get all coords between start and end
+        all_coords = self._get_coords_between(rook_startcoords, rook_endcoords)
+        # check if any piece is in the way
+        for coords in all_coords:
+            if self.pieces[coords[0]].get(coords[1]):
+                print('Piece in the way')
+                return False
+
+        del self.pieces[rook_startcoords[0]][rook_startcoords[1]]
+        self.pieces[rook_endcoords[0]][rook_endcoords[1]] = moved_rook
+        return True
 
     def draw(self) -> None:
         """Print current board status

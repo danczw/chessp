@@ -75,10 +75,17 @@ class King(Piece):
         Returns:
             bool: if the move is legal
         """
+        print(self.n_moves)
+        # check for castling
+        if self.n_moves == 0:
+            if self.color == 'white' and new_coords in [(7, 2), (7, 6)]:
+                return True
+            elif self.color == 'black' and new_coords in {(0, 2), (0, 6)}:
+                return True
+
+        # normal move
         return abs(new_coords[0]-self.coords[0]) <= 1 \
             and abs(new_coords[1]-self.coords[1]) <= 1
-
-        # TODO: add castling
 
 
 class Queen(Piece):

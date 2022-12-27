@@ -73,3 +73,21 @@ def test_king_startposition():
     assert board.pieces[0][4].color == 'black'
     assert board.pieces[7][4].name == 'King'
     assert board.pieces[7][4].color == 'white'
+
+
+def test_castling():
+    """Test castling for white and black
+    """
+    board = Board()
+
+    # basic opening
+    board.move_piece((6, 4), (4, 4), True)
+    board.move_piece((1, 4), (3, 4), False)
+    board.move_piece((7, 5), (6, 4), True)
+    board.move_piece((0, 5), (1, 4), False)
+    board.move_piece((7, 6), (5, 5), True)
+    board.move_piece((0, 6), (2, 5), False)
+
+    # castling
+    assert board.move_piece((7, 4), (7, 6), True)
+    assert board.move_piece((0, 4), (0, 6), False)
