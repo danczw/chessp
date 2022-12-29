@@ -1,0 +1,9 @@
+# .coveragerc to control coverage.py: https://coverage.readthedocs.io/en/latest/config.html
+[run]
+branch = True
+omit =
+    src/main.py
+    *__init__.py
+
+[report]
+fail_under = 80.

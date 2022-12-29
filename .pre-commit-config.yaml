@@ -6,14 +6,17 @@ repos:
         entry: black
         language: python
         types_or: [python]
+        always_run: true
       - id: flake8
         name: flake8
         entry: flake8
         language: python
         types_or: [python]
+        always_run: true
       - id: pytest-check
         name: pytest-check
         entry: pytest
         language: system
         pass_filenames: false
         always_run: true
+        args: ["--cov=src"]
