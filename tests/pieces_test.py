@@ -1,3 +1,5 @@
+import pytest
+
 from classes.pieces import Bishop, King, Knight, Pawn, Queen, Rook
 
 
@@ -135,34 +137,44 @@ def test_knight():
 def test_pawn():
     """Test the pawn class"""
     # test black pawn
-    pawn_w = Pawn(color="black", coords=(2, 2), name="pawn")
+    pawn_b = Pawn(color="black", coords=(2, 2), name="pawn")
 
-    assert pawn_w.color == "black"
-    assert pawn_w.n_moves == 0
-    assert pawn_w.coords == (2, 2)
-
-    assert pawn_w.move((0, 1)) == (-1, -1)
-    assert pawn_w.move((2, 2)) == (-1, -1)
-    assert pawn_w.move((3, 2)) == (3, 2)
-    assert pawn_w.move((4, 2)) == (4, 2)
-    assert pawn_w.move((4, 3)) == (-1, -1)
-
-    assert pawn_w.n_moves == 2
-    assert pawn_w.coords == (4, 2)
-
-    # test white pawn
-    pawn_b = Pawn(color="white", coords=(6, 6), name="pawn")
-
-    assert pawn_b.color == "white"
+    assert pawn_b.color == "black"
     assert pawn_b.n_moves == 0
-    assert pawn_b.coords == (6, 6)
+    assert pawn_b.coords == (2, 2)
 
     assert pawn_b.move((0, 1)) == (-1, -1)
-    assert pawn_b.move((6, 6)) == (-1, -1)
-    assert pawn_b.move((5, 6)) == (5, 6)
-    assert pawn_b.move((4, 6)) == (4, 6)
-    assert pawn_b.move((4, 5)) == (-1, -1)
-    assert pawn_b.move((3, 6)) == (3, 6)
+    assert pawn_b.move((2, 2)) == (-1, -1)
+    assert pawn_b.move((3, 2)) == (3, 2)
+    assert pawn_b.move((4, 2)) == (4, 2)
+    assert pawn_b.move((4, 3)) == (-1, -1)
 
-    assert pawn_b.n_moves == 3
-    assert pawn_b.coords == (3, 6)
+    assert pawn_b.n_moves == 2
+    assert pawn_b.coords == (4, 2)
+
+    # test white pawn
+    pawn_w = Pawn(color="white", coords=(6, 6), name="pawn")
+
+    assert pawn_w.color == "white"
+    assert pawn_w.n_moves == 0
+    assert pawn_w.coords == (6, 6)
+
+    assert pawn_w.move((0, 1)) == (-1, -1)
+    assert pawn_w.move((6, 6)) == (-1, -1)
+    assert pawn_w.move((5, 6)) == (5, 6)
+    assert pawn_w.move((4, 6)) == (4, 6)
+    assert pawn_w.move((4, 5)) == (-1, -1)
+    assert pawn_w.move((3, 6)) == (3, 6)
+
+    assert pawn_w.n_moves == 3
+    assert pawn_w.coords == (3, 6)
+
+    # test wrong color
+    pawn_y = Pawn(color="yellow", coords=(6, 6), name="pawn")
+
+    assert pawn_y.color == "yellow"
+    assert pawn_y.n_moves == 0
+    assert pawn_y.coords == (6, 6)
+
+    with pytest.raises(ValueError):
+        assert pawn_y.move((0, 1)) == ValueError

@@ -21,7 +21,7 @@ class Piece:
         self.name = name.title()
         self.name_short = name[0].upper() if self.name != "Knight" else "N"
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # pragma: no cover
         """String representation of the piece
 
         Returns:
@@ -30,7 +30,7 @@ class Piece:
         return f"{self.color} {self.name} at {self.coords}"
 
     @abstractmethod
-    def _check_legal_move(self, new_coords: tuple) -> bool:
+    def _check_legal_move(self, new_coords: tuple) -> bool:  # pragma: no cover
         """Check if a move is legal
 
         Args:
