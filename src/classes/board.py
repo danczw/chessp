@@ -108,12 +108,12 @@ class Board:
             print("Cannot capture own piece")
             return False
 
-        # check if any piece is in the way
+        # get all coords between start and end
         all_coords = self._get_coords_between(startcoords, endcoords)
-        for coords in all_coords:
-            if self.pieces[coords[0]].get(coords[1]):
-                print("Piece in the way")
-                return False
+        # check if any piece is in the way
+        if not self._check_coords_occupancy(all_coords):
+            return False
+
         # if no piece is in the way, remove piece from start coords
         del self.pieces[startcoords[0]][startcoords[1]]
 
@@ -131,6 +131,23 @@ class Board:
         # move piece to end coords
         self.pieces[endcoords[0]][endcoords[1]] = moved_piece
         self.draw()
+
+        return True
+
+    def _check_coords_occupancy(self, all_coords: list[tuple]) -> bool:
+        """Check if one of the coords between piece start and end is already
+        occupied by a piece
+
+        Args:
+            all_coords (list[tuple]): coordinates to check
+
+        Returns:
+            bool: if at least one of the checked coords is already occupied
+        """
+        for coords in all_coords:
+            if self.pieces[coords[0]].get(coords[1]):
+                print("Piece in the way")
+                return False
 
         return True
 
@@ -206,10 +223,8 @@ class Board:
         # get all coords between start and end
         all_coords = self._get_coords_between(rook_startcoords, rook_endcoords)
         # check if any piece is in the way
-        for coords in all_coords:
-            if self.pieces[coords[0]].get(coords[1]):
-                print("Piece in the way")
-                return False
+        if not self._check_coords_occupancy(all_coords):
+            return False
 
         del self.pieces[rook_startcoords[0]][rook_startcoords[1]]
         self.pieces[rook_endcoords[0]][rook_endcoords[1]] = moved_rook
