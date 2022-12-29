@@ -11,3 +11,9 @@ repos:
         entry: flake8
         language: python
         types_or: [python]
+      - id: pytest-check
+        name: pytest-check
+        entry: pytest
+        language: system
+        pass_filenames: false
+        always_run: true
