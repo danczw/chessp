@@ -8,7 +8,7 @@ Simple chess game implemented in Python. Two players can play against each other
 
 <br>
 
-## Setup
+## Game Setup
 
 [Poetry](https://python-poetry.org) is used to manage the project dependencies. Install dependencies via:
 
@@ -40,3 +40,19 @@ Currently, following hooks are included:
 - `flake8`: linter
 - `pytest`: unit tests
 - `coverage` & `pytest-cov`: code coverage
+
+Unit tests are implemented using [pytest](https://docs.pytest.org/) and code coverage is measured using [pytest-cov](https://github.com/pytest-dev/pytest-cov) together with [coverage](https://coverage.readthedocs.io/). To run unit tests and measure code coverage, use:
+
+    `pytest --cov=src`
+
+Coverage configurations can be found in [./.coveragerc](./.coveragerc)
+
+<br>
+
+-----------------
+
+<br>
+
+## License
+
+[Apache License 2.0](LICENSE)

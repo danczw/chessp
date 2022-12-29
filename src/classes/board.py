@@ -215,11 +215,6 @@ class Board:
             print("Cannot castle, rook has moved")
             return False
 
-        # check if rook move is valid
-        if moved_rook.move(rook_endcoords) == (-1, -1):
-            print("Invalid castling")
-            return False
-
         # get all coords between start and end
         all_coords = self._get_coords_between(rook_startcoords, rook_endcoords)
         # check if any piece is in the way

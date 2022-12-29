@@ -2,6 +2,43 @@ from classes.board import Board
 from classes.pieces import Pawn
 
 
+def test_move():
+    """Test correct moves"""
+    board = Board()
+
+    # pawn move
+    board.move_piece((6, 3), (5, 3), True)
+    # bishop move for lateral movement
+    assert board.move_piece((7, 2), (5, 4), True)
+
+
+def test_wrong_move():
+    """Test raising errors on wrong moves"""
+    board = Board()
+
+    # wrong color turn
+    assert not board.move_piece((6, 0), (5, 0), False)
+    assert not board.move_piece((1, 0), (2, 0), True)
+
+    # no piece at starting position
+    assert not board.move_piece((2, 0), (3, 0), True)
+
+    # wrong move
+    assert not board.move_piece((6, 0), (7, 0), True)
+
+    # end coordinates occupied of own piece
+    assert not board.move_piece((7, 1), (6, 3), True)
+
+    # piece in the way
+    assert not board.move_piece((7, 0), (5, 0), True)
+
+    # castling with rook moved
+    for col in range(1, 4):  # delete pieces between R and K
+        del board.pieces[7][col]
+    board.pieces[7][0].n_moves = 1
+    assert not board.move_piece((7, 4), (7, 2), True)
+
+
 def test_pawn_startposition():
     """Test start positions of pieces on board: Pawn"""
     board_one = Board()
